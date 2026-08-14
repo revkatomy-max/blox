@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will you go out with me?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root{
+    --pink-deep:#e8497a;
+    --pink-mid:#ff8fb3;
+    --pink-light:#ffd6e5;
+    --pink-pale:#fff0f5;
+    --ink:#5a1633;
+    --cloud:#ffffff;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    overflow:hidden;
+    font-family:'VT323', monospace;
+    background:var(--pink-light);
+  }
+
+  .stage{
+    position:relative;
+    width:100%;
+    height:100vh;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,255,255,0.5) 0 2px, transparent 3px),
+      radial-gradient(circle at 80% 15%, rgba(255,255,255,0.4) 0 2px, transparent 3px),
+      radial-gradient(circle at 60% 30%, rgba(255,255,255,0.35) 0 1.5px, transparent 2px),
+      linear-gradient(180deg, var(--pink-mid) 0%, var(--pink-light) 55%, var(--pink-pale) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  /* pixel hearts drifting */
+  .heart{
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:var(--pink-deep);
+    opacity:0.55;
+    clip-path:polygon(50% 15%,61% 0%,78% 0%,100% 22%,100% 40%,50% 100%,0% 40%,0% 22%,22% 0%,39% 0%);
+    animation:drift linear infinite;
+    image-rendering:pixelated;
+  }
+  @keyframes drift{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:0.6;}
+    100%{ transform:translateY(-110vh) translateX(var(--dx,20px)) rotate(20deg); opacity:0;}
+  }
+
+  /* skyline silhouette bottom */
+  .skyline{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:22vh;
+    background:var(--pink-deep);
+    opacity:0.35;
+    clip-path:polygon(
+      0% 100%, 0% 60%, 5% 60%, 5% 40%, 10% 40%, 10% 55%, 16% 55%, 16% 30%,
+      22% 30%, 22% 50%, 28% 50%, 28% 20%, 34% 20%, 34% 45%, 40% 45%, 40% 25%,
+      46% 25%, 46% 55%, 52% 55%, 52% 35%, 58% 35%, 58% 15%, 64% 15%, 64% 40%,
+      70% 40%, 70% 20%, 76% 20%, 76% 50%, 82% 50%, 82% 30%, 88% 30%, 88% 55%,
+      94% 55%, 94% 35%, 100% 35%, 100% 100%
+    );
+  }
+
+  .card{
+    position:relative;
+    z-index:5;
+    width:min(90vw, 420px);
+    padding:36px 24px 44px;
+    text-align:center;
+  }
+
+  .sparkle{
+    position:absolute;
+    color:var(--cloud);
+    font-size:18px;
+    animation:twinkle 1.8s ease-in-out infinite;
+    text-shadow:0 0 6px rgba(255,255,255,0.8);
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0.2; transform:scale(0.8);}
+    50%{opacity:1; transform:scale(1.1);}
+  }
+
+  .pet-frame{
+    width:150px;
+    height:150px;
+    margin:0 auto 22px;
+    background:#1a1a1a;
+    border:5px solid var(--cloud);
+    outline:3px solid var(--pink-deep);
+    outline-offset:-9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 0 rgba(90,22,51,0.25);
+    image-rendering:pixelated;
+    position:relative;
+  }
+  .pet-frame::before,.pet-frame::after{
+    content:"♥";
+    position:absolute;
+    color:var(--pink-deep);
+    font-size:14px;
+    top:-11px;
+  }
+  .pet-frame::before{left:-11px;}
+  .pet-frame::after{right:-11px;}
+
+  .pet{
+    width:96px;
+    height:96px;
+    animation:bob 1.6s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0);}
+    50%{ transform:translateY(-6px);}
+  }
+
+  .question{
+    font-family:'Press Start 2P', monospace;
+    color:var(--pink-deep);
+    font-size:22px;
+    line-height:1.9;
+    text-shadow:2px 2px 0 var(--cloud), -1px -1px 0 var(--cloud);
+    margin:0 0 8px;
+    letter-spacing:1px;
+  }
+
+  .subtext{
+    font-size:19px;
+    color:var(--ink);
+    opacity:0.75;
+    margin:0 0 26px;
+    height:24px;
+  }
+
+  .buttons{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    min-height:70px;
+  }
+
+  .btn{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    padding:14px 22px;
+    border:none;
+    cursor:pointer;
+    color:var(--cloud);
+    letter-spacing:1px;
+    image-rendering:pixelated;
+    box-shadow:0 5px 0 rgba(0,0,0,0.25);
+    transition:transform 0.08s ease;
+  }
+  .btn:active{ transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,0.25);}
+
+  .btn-yes{
+    background:var(--pink-deep);
+    border:3px solid var(--cloud);
+    outline:2px solid var(--pink-deep);
+    outline-offset:-7px;
+    animation:pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform:scale(1);}
+    50%{ transform:scale(var(--yes-scale, 1.05));}
+  }
+
+  .btn-no{
+    background:transparent;
+    color:var(--pink-deep);
+    border:3px solid var(--pink-deep);
+    box-shadow:none;
+    position:relative;
+    transition:transform 0.15s ease, left 0.15s ease, top 0.15s ease;
+  }
+  .btn-no.escaping{
+    position:fixed;
+  }
+
+  .result{
+    display:none;
+    text-align:center;
+  }
+  .result.show{ display:block; animation:pop 0.4s ease; }
+  @keyframes pop{
+    0%{ transform:scale(0.6); opacity:0;}
+    70%{ transform:scale(1.08);}
+    100%{ transform:scale(1); opacity:1;}
+  }
+
+  .result .question{ font-size:19px; }
+  .confetti{
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .confetti span{
+    position:absolute;
+    top:-10px;
+    width:8px;
+    height:8px;
+    background:var(--pink-deep);
+    animation:fall linear forwards;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(360deg); opacity:0.3;}
+  }
+
+  .footer-note{
+    margin-top:20px;
+    font-size:14px;
+    color:var(--ink);
+    opacity:0.45;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="skyline"></div>
+
+  <div class="card">
+    <div class="pet-frame">
+      <svg class="pet" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <!-- pixel cat, simple 16x16 style scaled -->
+        <g fill="#f3f3f3">
+          <rect x="3" y="1" width="2" height="2"/>
+          <rect x="11" y="1" width="2" height="2"/>
+          <rect x="2" y="3" width="12" height="9"/>
+          <rect x="1" y="4" width="1" height="6"/>
+          <rect x="14" y="4" width="1" height="6"/>
+        </g>
+        <g fill="#ffc4d8">
+          <rect x="3" y="2" width="1" height="1"/>
+          <rect x="12" y="2" width="1" height="1"/>
+        </g>
+        <g fill="#3a2233">
+          <rect x="5" y="6" width="1" height="1"/>
+          <rect x="10" y="6" width="1" height="1"/>
+        </g>
+        <rect x="7" y="8" width="2" height="1" fill="#e8497a"/>
+        <g fill="#f3f3f3">
+          <rect x="2" y="12" width="3" height="2"/>
+          <rect x="11" y="12" width="3" height="2"/>
+        </g>
+      </svg>
+    </div>
+
+    <div id="askScreen">
+      <p class="question">Will you go<br>out with me?</p>
+      <p class="subtext" id="subtext">tap yes, i dare you 🩷</p>
+
+      <div class="buttons" id="buttons">
+        <button class="btn btn-yes" id="yesBtn" style="--yes-scale:1.05">YES+</button>
+        <button class="btn btn-no" id="noBtn">No</button>
+      </div>
+    </div>
+
+    <div class="result" id="resultScreen">
+      <p class="question">yay!! 🎉</p>
+      <p class="subtext">see you soon, cutie 🩷</p>
+    </div>
+
+    <p class="footer-note">psst, the no button is shy</p>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+</div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const buttons = document.getElementById('buttons');
+  const subtext = document.getElementById('subtext');
+  const askScreen = document.getElementById('askScreen');
+  const resultScreen = document.getElementById('resultScreen');
+  const confettiWrap = document.getElementById('confetti');
+
+  // floating hearts
+  for(let i=0;i<16;i++){
+    const h = document.createElement('div');
+    h.className='heart';
+    h.style.left = Math.random()*100+'vw';
+    h.style.bottom = '-5vh';
+    h.style.setProperty('--dx', (Math.random()*80-40)+'px');
+    h.style.animationDuration = (6+Math.random()*8)+'s';
+    h.style.animationDelay = (Math.random()*8)+'s';
+    h.style.transform = `scale(${0.7+Math.random()*0.8})`;
+    stage.appendChild(h);
+  }
+
+  // sparkles
+  const sparklePositions = [[8,10],[92,15],[15,85],[85,80],[50,6]];
+  sparklePositions.forEach(([x,y],i)=>{
+    const s = document.createElement('div');
+    s.className='sparkle';
+    s.textContent='✦';
+    s.style.left = x+'%';
+    s.style.top = y+'%';
+    s.style.animationDelay = (i*0.3)+'s';
+    stage.appendChild(s);
+  });
+
+  const excuses = [
+    "yakin nih?",
+    "coba lagi deh~",
+    "eits, kepencet",
+    "nggak nyampe kan?",
+    "sini dulu...",
+    "kejar aku dong",
+    "hayo mau kemana",
+    "gagal mulu ya",
+  ];
+  let noCount = 0;
+  let yesScale = 1.05;
+
+  function moveNoButton(){
+    const btnRect = noBtn.getBoundingClientRect();
+    const margin = 20;
+    const maxX = window.innerWidth - btnRect.width - margin;
+    const maxY = window.innerHeight - btnRect.height - margin;
+
+    if(!noBtn.classList.contains('escaping')){
+      noBtn.classList.add('escaping');
+      noBtn.style.width = btnRect.width+'px';
+    }
+
+    const newX = Math.max(margin, Math.random()*maxX);
+    const newY = Math.max(margin, Math.random()*maxY);
+
+    noBtn.style.left = newX+'px';
+    noBtn.style.top = newY+'px';
+
+    noCount++;
+    subtext.textContent = excuses[noCount % excuses.length];
+
+    // yes button grows a little each time
+    yesScale = Math.min(1.4, yesScale + 0.035);
+    yesBtn.style.setProperty('--yes-scale', yesScale);
+    yesBtn.style.fontSize = (14 + noCount*0.6)+'px';
+    yesBtn.style.padding = (14 + noCount*0.4)+'px '+(22 + noCount*0.6)+'px';
+  }
+
+  noBtn.addEventListener('mouseenter', moveNoButton);
+  noBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    moveNoButton();
+  });
+  noBtn.addEventListener('touchstart', (e)=>{
+    e.preventDefault();
+    moveNoButton();
+  }, {passive:false});
+
+  yesBtn.addEventListener('click', ()=>{
+    askScreen.style.display='none';
+    resultScreen.classList.add('show');
+    launchConfetti();
+  });
+
+  function launchConfetti(){
+    const colors = ['#e8497a','#ff8fb3','#ffd6e5','#ffffff'];
+    for(let i=0;i<60;i++){
+      const c = document.createElement('span');
+      c.style.left = Math.random()*100+'vw';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDuration = (2+Math.random()*2)+'s';
+      c.style.animationDelay = (Math.random()*0.6)+'s';
+      c.style.width = c.style.height = (5+Math.random()*6)+'px';
+      confettiWrap.appendChild(c);
+    }
+  }
+</script>
+
+</body>
+</html>
