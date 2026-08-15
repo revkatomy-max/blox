@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PTPT Boost X8 — BLOX Gank</title>
+<title>Portofolio — BLOX GANK ID</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap');
 
   :root{
     --sky-top:#f3c6e6;
@@ -17,7 +17,10 @@
     --ink:#7a2a5c;
     --accent:#ff8fb0;
     --accent-deep:#ff5c8a;
+    --purple-deep:#a855c9;
+    --purple-dark:#8d3fa8;
     --cloud:#ffffff;
+    --card:#fff8fc;
   }
 
   *{box-sizing:border-box;}
@@ -26,7 +29,8 @@
     padding:0;
     min-height:100%;
     font-family:'Quicksand', sans-serif;
-    background:linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 40%, var(--sky-low) 100%);
+    background:linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 35%, var(--sky-low) 100%);
+    background-attachment:fixed;
     color:var(--ink);
     overflow-x:hidden;
   }
@@ -37,22 +41,55 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:flex-start;
-    padding:48px 20px 0;
+    padding:44px 18px 60px;
     overflow:hidden;
   }
 
-  .cloud{
+  .cloud-el{
     position:absolute;
     background:var(--cloud);
     border-radius:100px;
-    opacity:0.85;
-    filter:drop-shadow(0 4px 0 rgba(63,169,201,0.08));
+    opacity:0.8;
+    filter:drop-shadow(0 4px 0 rgba(122,42,92,0.06));
     animation:driftCloud linear infinite;
+    z-index:0;
   }
   @keyframes driftCloud{
     from{ transform:translateX(-10vw);}
     to{ transform:translateX(110vw);}
+  }
+
+  .star{
+    position:absolute;
+    color:var(--cloud);
+    opacity:0.9;
+    text-shadow:0 0 8px rgba(255,255,255,0.9);
+    animation:twinkleStar 2.2s ease-in-out infinite;
+    z-index:0;
+  }
+  @keyframes twinkleStar{
+    0%,100%{ opacity:0.25; transform:scale(0.75);}
+    50%{ opacity:1; transform:scale(1.15);}
+  }
+
+  .bubble{
+    position:absolute;
+    background:rgba(255,255,255,0.5);
+    border-radius:50%;
+    animation:rise linear infinite;
+    z-index:0;
+  }
+  @keyframes rise{
+    from{ transform:translateY(0); opacity:0;}
+    10%{ opacity:0.7;}
+    100%{ transform:translateY(-70vh); opacity:0;}
+  }
+
+  header{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    margin-bottom:8px;
   }
 
   .badge{
@@ -63,16 +100,15 @@
     color:var(--accent-deep);
     font-family:'Baloo 2', sans-serif;
     font-weight:700;
-    font-size:15px;
-    padding:8px 18px;
+    font-size:14px;
+    padding:7px 16px;
     border-radius:999px;
-    box-shadow:0 4px 0 rgba(255,122,77,0.18);
-    margin-bottom:22px;
-    z-index:5;
+    box-shadow:0 4px 0 rgba(255,92,138,0.18);
+    margin-bottom:18px;
     letter-spacing:0.5px;
   }
   .badge .dot{
-    width:8px; height:8px;
+    width:7px; height:7px;
     background:var(--accent);
     border-radius:50%;
     animation:blink 1.4s ease-in-out infinite;
@@ -86,101 +122,148 @@
     font-family:'Playfair Display', serif;
     font-weight:900;
     font-style:italic;
-    font-size:clamp(30px, 6.5vw, 50px);
+    font-size:clamp(30px, 6.5vw, 48px);
     line-height:1.2;
-    text-align:center;
-    margin:0 0 34px;
+    margin:0 0 10px;
     color:var(--accent-deep);
     -webkit-text-stroke:2px var(--cloud);
     paint-order:stroke fill;
     text-shadow:0 4px 0 rgba(122,42,92,0.15);
-    z-index:5;
-  }
-  .title .x8{
-    display:inline-block;
-    font-family:'Baloo 2', sans-serif;
-    font-style:normal;
-    color:var(--cloud);
-    -webkit-text-stroke:0;
-    background:linear-gradient(135deg, var(--accent), var(--accent-deep));
-    padding:2px 16px;
-    border-radius:14px;
-    box-shadow:0 5px 0 rgba(255,92,138,0.35);
-    transform:rotate(-3deg);
   }
 
   .subtitle{
-    text-align:center;
-    font-size:18px;
+    font-size:16px;
     max-width:480px;
     color:var(--ink);
     opacity:0.75;
-    margin:8px 0 34px;
-    z-index:5;
+    margin:0 auto 34px;
     line-height:1.5;
   }
 
-  .hero-wrap{
+  /* filter tabs */
+  .filters{
     position:relative;
-    width:min(88vw, 420px);
-    aspect-ratio:1/1;
-    z-index:4;
-    margin-bottom:8px;
-  }
-
-  .hero-frame{
-    position:relative;
-    width:100%;
-    height:100%;
-    border-radius:32px;
-    overflow:hidden;
-    background:linear-gradient(160deg, var(--sea-light), var(--sea-mid));
-    box-shadow:0 14px 0 rgba(63,169,201,0.18), 0 20px 40px rgba(63,169,201,0.25);
-    border:6px solid var(--cloud);
-  }
-
-  #heroImage{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-  }
-
-  .hero-fallback{
-    position:absolute;
-    inset:0;
-    display:none;
-    align-items:center;
-    justify-content:center;
-  }
-  .hero-fallback svg{ width:78%; height:78%; }
-
-  .cta{
     z-index:5;
-    display:inline-flex;
-    align-items:center;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:10px;
+    margin-bottom:30px;
+    max-width:640px;
+  }
+  .filter-btn{
     font-family:'Baloo 2', sans-serif;
     font-weight:700;
-    font-size:20px;
-    color:var(--cloud);
-    background:linear-gradient(135deg, var(--sea-deep), #a855c9);
-    padding:16px 36px;
+    font-size:13px;
+    color:var(--purple-dark);
+    background:var(--cloud);
+    border:2px solid transparent;
+    padding:9px 18px;
     border-radius:999px;
-    text-decoration:none;
-    box-shadow:0 6px 0 #8d3fa8;
-    margin:30px 0 10px;
-    transition:transform 0.1s ease;
+    cursor:pointer;
+    transition:all 0.15s ease;
+    box-shadow:0 3px 0 rgba(122,42,92,0.1);
   }
-  .cta:active{ transform:translateY(4px); box-shadow:0 2px 0 #8d3fa8; }
+  .filter-btn:hover{ transform:translateY(-1px); }
+  .filter-btn.active{
+    background:linear-gradient(135deg, var(--accent), var(--accent-deep));
+    color:var(--cloud);
+    box-shadow:0 4px 0 rgba(255,92,138,0.35);
+  }
 
-  .note{
+  /* portfolio grid */
+  .grid{
+    position:relative;
     z-index:5;
-    font-size:14px;
+    width:100%;
+    max-width:640px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .card{
+    background:var(--card);
+    border:2px solid rgba(255,143,176,0.25);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 6px 0 rgba(196,122,209,0.15);
+    transition:box-shadow 0.2s ease;
+  }
+
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  .card-icon{
+    width:46px;
+    height:46px;
+    min-width:46px;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--sea-light), var(--sea-mid));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+  }
+
+  .card-info{ flex:1; min-width:0; }
+  .card-name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16.5px;
     color:var(--ink);
-    opacity:0.55;
-    margin-bottom:40px;
+    margin:0 0 3px;
+  }
+  .card-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:var(--purple-dark);
+    background:rgba(168,85,201,0.12);
+    padding:3px 10px;
+    border-radius:999px;
+  }
+
+  .chevron{
+    font-size:14px;
+    color:var(--accent-deep);
+    transition:transform 0.25s ease;
+    min-width:16px;
     text-align:center;
+  }
+  .card.open .chevron{ transform:rotate(180deg); }
+
+  .card-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .card-body-inner{
+    padding:0 18px 18px 78px;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--ink);
+    opacity:0.85;
+  }
+  .card-body-inner ul{
+    margin:8px 0 0;
+    padding-left:18px;
+  }
+  .card-body-inner li{ margin-bottom:4px; }
+  .placeholder-note{
+    display:inline-block;
+    margin-top:8px;
+    font-size:12.5px;
+    font-style:italic;
+    color:var(--purple-dark);
+    opacity:0.7;
   }
 
   .waves{
@@ -188,60 +271,162 @@
     width:100%;
     margin-top:auto;
     line-height:0;
+    z-index:3;
   }
   .waves svg{ width:100%; height:auto; display:block; }
-
-  .bubble{
-    position:absolute;
-    background:rgba(255,255,255,0.5);
-    border-radius:50%;
-    animation:rise linear infinite;
-  }
-  @keyframes rise{
-    from{ transform:translateY(0); opacity:0;}
-    10%{ opacity:0.7;}
-    100%{ transform:translateY(-60vh); opacity:0;}
-  }
-
-  .star{
-    position:absolute;
-    color:var(--cloud);
-    opacity:0.9;
-    text-shadow:0 0 8px rgba(255,255,255,0.9);
-    animation:twinkleStar 2.2s ease-in-out infinite;
-  }
-  @keyframes twinkleStar{
-    0%,100%{ opacity:0.25; transform:scale(0.75);}
-    50%{ opacity:1; transform:scale(1.15);}
-  }
 </style>
 </head>
 <body>
 
 <div class="stage" id="stage">
 
-  <div class="badge"><span class="dot"></span> BLOX GANK EVENT</div>
+  <header>
+    <div class="badge"><span class="dot"></span> BLOX GANK ID</div>
+    <h1 class="title">Portofolio Kami</h1>
+    <p class="subtitle">Kumpulan bot, script, dan tools yang dikembangkan buat komunitas BLOX GANK. Tap kartu buat lihat detailnya 👇</p>
+  </header>
 
-  <h1 class="title">Ayo Ikut PTPT<br><span class="x8">BOOST X8</span></h1>
-
-  <div class="hero-wrap">
-    <div class="hero-frame">
-      <img id="heroImage" src="assets/hero.png" alt="PTPT Boost X8"
-           onerror="this.style.display='none'; document.getElementById('heroFallback').style.display='flex';">
-      <div class="hero-fallback" id="heroFallback">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="100" cy="80" r="46" fill="#ffe3b0"/>
-          <path d="M60 95 Q100 60 140 95 Q100 130 60 95 Z" fill="#ff9e6d"/>
-          <circle cx="88" cy="88" r="5" fill="#7a2a5c"/>
-          <path d="M40 92 L20 78 L20 106 Z" fill="#ff7a4d"/>
-          <path d="M20 130 Q60 110 100 130 Q140 150 180 130" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.8"/>
-          <path d="M10 150 Q60 130 100 150 Q140 170 190 150" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
-        </svg>
-      </div>
-    </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="all">Semua</button>
+    <button class="filter-btn" data-filter="script">Script Lua</button>
+    <button class="filter-btn" data-filter="bot">Discord Bot</button>
+    <button class="filter-btn" data-filter="tool">Tools Lain</button>
   </div>
 
-  <a class="cta" href="https://discord.gg/atn7CuZHa" id="joinBtn" target="_blank" rel="noopener">Gabung Sekarang →</a>
+  <div class="grid" id="grid">
+
+    <div class="card" data-cat="script">
+      <div class="card-head" onclick="toggleCard(this)">
+        <div class="card-icon">🎣</div>
+        <div class="card-info">
+          <p class="card-name">BLOX Gank Server Monitor</p>
+          <span class="card-tag">SCRIPT LUA</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          Script executor yang mantau chat in-game Fish It, lalu otomatis kirim embed Discord tiap ada tangkapan langka.
+          <ul>
+            <li>Deteksi tier Mythic, Secret, Forgotten, Ruby, Mutasi</li>
+            <li>Notifikasi AFK & event hunt (Treasure/Thunderzilla)</li>
+            <li>Panel UI custom di layar</li>
+          </ul>
+          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="bot">
+      <div class="card-head" onclick="toggleCard(this)">
+        <div class="card-icon">🏆</div>
+        <div class="card-info">
+          <p class="card-name">Event Galatama Bot</p>
+          <span class="card-tag">DISCORD BOT</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          Bot leaderboard yang parsing hasil tangkapan dan hitung skor otomatis buat kompetisi Galatama.
+          <ul>
+            <li>Rank card & leaderboard bergambar</li>
+            <li>Sistem poin per tier + bonus mutasi</li>
+            <li>Progress bar & notifikasi naik level</li>
+          </ul>
+          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="bot">
+      <div class="card-head" onclick="toggleCard(this)">
+        <div class="card-icon">📸</div>
+        <div class="card-info">
+          <p class="card-name">PTPT Photo Contest Bot</p>
+          <span class="card-tag">DISCORD BOT</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          Bot kontes foto mutasi ikan mingguan dengan tema acak dan voting rahasia.
+          <ul>
+            <li>Tema mingguan diundi otomatis</li>
+            <li>Voting pakai tombol, hasil disembunyikan</li>
+            <li>Slot terbatas dengan proteksi anti-rebutan</li>
+          </ul>
+          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="bot">
+      <div class="card-head" onclick="toggleCard(this)">
+        <div class="card-icon">🎫</div>
+        <div class="card-info">
+          <p class="card-name">PTPT Order System</p>
+          <span class="card-tag">DISCORD BOT</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          Sistem tiket pemesanan slot PTPT lengkap dengan verifikasi pembayaran dan auto-role.
+          <ul>
+            <li>Verifikasi pembayaran by role tertentu</li>
+            <li>Auto-role setelah pembayaran diterima</li>
+            <li>Riwayat & manajemen order tersimpan aman</li>
+          </ul>
+          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="tool">
+      <div class="card-head" onclick="toggleCard(this)">
+        <div class="card-icon">🖼️</div>
+        <div class="card-info">
+          <p class="card-name">Roblox Avatar Bot</p>
+          <span class="card-tag">TOOLS LAIN</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          Bot kecil buat ambil gambar avatar Roblox resolusi tinggi langsung dari Discord.
+          <ul>
+            <li>Output gambar 720×720 (resolusi maksimal API Roblox)</li>
+            <li>Cukup input username/ID</li>
+          </ul>
+          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="bot">
+      <div class="card-head" onclick="toggleCard(this)">
+        <div class="card-icon">🛡️</div>
+        <div class="card-info">
+          <p class="card-name">Auto-Moderation Bot</p>
+          <span class="card-tag">DISCORD BOT</span>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          Bot moderasi otomatis buat jaga channel dari gambar-gambar yang di-upload lewat webhook.
+          <ul>
+            <li>Deteksi & hapus gambar webhook di channel tertentu</li>
+            <li>Timeout bertingkat buat pelanggar berulang</li>
+            <li>Pelacakan lewat audit log</li>
+          </ul>
+          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
   <div class="waves">
     <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
@@ -254,36 +439,24 @@
 
 <script>
   const stage = document.getElementById('stage');
+
   const cloudSizes = [
-    {w:90,h:34,top:'8%'}, {w:60,h:22,top:'16%'}, {w:110,h:40,top:'4%'},
-    {w:50,h:18,top:'22%'}, {w:75,h:28,top:'12%'}
+    {w:90,h:34,top:'6%'}, {w:60,h:22,top:'14%'}, {w:110,h:40,top:'3%'},
+    {w:50,h:18,top:'20%'}, {w:75,h:28,top:'10%'}
   ];
   cloudSizes.forEach((c,i)=>{
     const el = document.createElement('div');
-    el.className='cloud';
+    el.className='cloud-el';
     el.style.width=c.w+'px';
     el.style.height=c.h+'px';
     el.style.top=c.top;
     el.style.left='-15vw';
     el.style.animationDuration=(28+i*9)+'s';
     el.style.animationDelay=(i*4)+'s';
-    stage.insertBefore(el, stage.firstChild);
+    stage.appendChild(el);
   });
 
-  for(let i=0;i<14;i++){
-    const b = document.createElement('div');
-    b.className='bubble';
-    const size = 4+Math.random()*10;
-    b.style.width=size+'px';
-    b.style.height=size+'px';
-    b.style.left=Math.random()*100+'vw';
-    b.style.bottom='0';
-    b.style.animationDuration=(6+Math.random()*8)+'s';
-    b.style.animationDelay=(Math.random()*8)+'s';
-    stage.appendChild(b);
-  }
-
-  const starSpots = [[6,10],[92,8],[88,28],[10,32],[50,5],[75,18]];
+  const starSpots = [[6,6],[92,5],[88,18],[10,22],[50,3],[75,12]];
   starSpots.forEach(([x,y],i)=>{
     const s = document.createElement('div');
     s.className='star';
@@ -295,6 +468,53 @@
     stage.appendChild(s);
   });
 
+  for(let i=0;i<12;i++){
+    const b = document.createElement('div');
+    b.className='bubble';
+    const size = 4+Math.random()*9;
+    b.style.width=size+'px';
+    b.style.height=size+'px';
+    b.style.left=Math.random()*100+'vw';
+    b.style.bottom='0';
+    b.style.animationDuration=(7+Math.random()*8)+'s';
+    b.style.animationDelay=(Math.random()*8)+'s';
+    stage.appendChild(b);
+  }
+
+  function toggleCard(headEl){
+    const card = headEl.parentElement;
+    const body = card.querySelector('.card-body');
+    const isOpen = card.classList.contains('open');
+
+    document.querySelectorAll('.card.open').forEach(c=>{
+      if(c!==card){
+        c.classList.remove('open');
+        c.querySelector('.card-body').style.maxHeight = 0;
+      }
+    });
+
+    if(isOpen){
+      card.classList.remove('open');
+      body.style.maxHeight = 0;
+    } else {
+      card.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card=>{
+        const show = (f==='all' || card.dataset.cat===f);
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
 </script>
 
 </body>
