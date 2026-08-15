@@ -136,9 +136,27 @@
     max-width:480px;
     color:var(--ink);
     opacity:0.75;
-    margin:0 auto 34px;
+    margin:0 auto 22px;
     line-height:1.5;
   }
+
+  .cta-join{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--cloud);
+    background:linear-gradient(135deg, var(--sea-deep), var(--purple-deep));
+    padding:13px 30px;
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:0 5px 0 var(--purple-dark);
+    margin-bottom:32px;
+    transition:transform 0.1s ease;
+  }
+  .cta-join:active{ transform:translateY(3px); box-shadow:0 2px 0 var(--purple-dark); }
 
   /* filter tabs */
   .filters{
@@ -266,6 +284,36 @@
     opacity:0.7;
   }
 
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    margin-top:12px;
+  }
+  .gallery-item{
+    position:relative;
+    aspect-ratio:1/1;
+    border-radius:12px;
+    overflow:hidden;
+    background:linear-gradient(135deg, var(--sea-light), var(--sea-mid));
+    border:2px solid rgba(255,255,255,0.6);
+  }
+  .gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .gallery-item .placeholder-icon{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    opacity:0.5;
+  }
+
   .waves{
     position:relative;
     width:100%;
@@ -284,6 +332,7 @@
     <div class="badge"><span class="dot"></span> BLOX GANK ID</div>
     <h1 class="title">Portofolio Kami</h1>
     <p class="subtitle">Kumpulan bot, script, dan tools yang dikembangkan buat komunitas BLOX GANK. Tap kartu buat lihat detailnya 👇</p>
+    <a class="cta-join" href="https://discord.gg/atn7CuZHa" target="_blank" rel="noopener">Gabung Sekarang →</a>
   </header>
 
   <div class="filters" id="filters">
@@ -334,7 +383,8 @@
             <li>Sistem poin per tier + bonus mutasi</li>
             <li>Progress bar & notifikasi naik level</li>
           </ul>
-          <span class="placeholder-note">✏️ detail & gambar menyusul</span>
+          <div class="gallery" id="galatamaGallery"></div>
+          <span class="placeholder-note">✏️ upload foto ke <code>assets/gallery/galatama-1.jpg</code> dst</span>
         </div>
       </div>
     </div>
@@ -515,6 +565,32 @@
       });
     });
   });
+
+  // Auto-load gallery images from assets/gallery/galatama-1.jpg, galatama-2.jpg, ...
+  // Upload files with these exact names and they'll appear automatically.
+  const galleryEl = document.getElementById('galatamaGallery');
+  const maxSlots = 6;
+  let loadedCount = 0;
+
+  for(let i=1;i<=maxSlots;i++){
+    const src = `assets/gallery/galatama-${i}.jpg`;
+    const img = new Image();
+    img.onload = function(){
+      const item = document.createElement('div');
+      item.className='gallery-item';
+      const realImg = document.createElement('img');
+      realImg.src = src;
+      realImg.alt = 'Event Galatama '+i;
+      item.appendChild(realImg);
+      galleryEl.appendChild(item);
+      loadedCount++;
+      // re-measure open card height in case it's expanded
+      const openBody = document.querySelector('.card.open .card-body');
+      if(openBody) openBody.style.maxHeight = openBody.scrollHeight + 'px';
+    };
+    img.onerror = function(){ /* slot empty, skip silently */ };
+    img.src = src;
+  }
 </script>
 
 </body>
