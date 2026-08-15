@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PTPT Boost X8 — BLOX Gank</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap');
 
   :root{
-    --sky-top:#bfe3ff;
-    --sky-mid:#dff3ff;
-    --sky-low:#fdf6ec;
-    --sea-deep:#3fa9c9;
-    --sea-mid:#7fd4e0;
-    --sea-light:#bdeaea;
-    --ink:#1f4d5c;
-    --accent:#ff9e6d;
-    --accent-deep:#ff7a4d;
+    --sky-top:#f3c6e6;
+    --sky-mid:#e2c3f1;
+    --sky-low:#fdf1f7;
+    --sea-deep:#c47ad1;
+    --sea-mid:#e2a8de;
+    --sea-light:#f6d3ef;
+    --ink:#7a2a5c;
+    --accent:#ff8fb0;
+    --accent-deep:#ff5c8a;
     --cloud:#ffffff;
   }
 
@@ -83,22 +83,29 @@
   }
 
   .title{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:800;
-    font-size:clamp(32px, 7vw, 54px);
-    line-height:1.15;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-style:italic;
+    font-size:clamp(30px, 6.5vw, 50px);
+    line-height:1.2;
     text-align:center;
     margin:0 0 34px;
-    color:var(--ink);
+    color:var(--accent-deep);
+    -webkit-text-stroke:2px var(--cloud);
+    paint-order:stroke fill;
+    text-shadow:0 4px 0 rgba(122,42,92,0.15);
     z-index:5;
   }
   .title .x8{
     display:inline-block;
+    font-family:'Baloo 2', sans-serif;
+    font-style:normal;
     color:var(--cloud);
+    -webkit-text-stroke:0;
     background:linear-gradient(135deg, var(--accent), var(--accent-deep));
     padding:2px 16px;
     border-radius:14px;
-    box-shadow:0 5px 0 rgba(255,122,77,0.35);
+    box-shadow:0 5px 0 rgba(255,92,138,0.35);
     transform:rotate(-3deg);
   }
 
@@ -157,15 +164,15 @@
     font-weight:700;
     font-size:20px;
     color:var(--cloud);
-    background:linear-gradient(135deg, var(--sea-deep), #2f8fac);
+    background:linear-gradient(135deg, var(--sea-deep), #a855c9);
     padding:16px 36px;
     border-radius:999px;
     text-decoration:none;
-    box-shadow:0 6px 0 #256f86;
+    box-shadow:0 6px 0 #8d3fa8;
     margin:30px 0 10px;
     transition:transform 0.1s ease;
   }
-  .cta:active{ transform:translateY(4px); box-shadow:0 2px 0 #256f86; }
+  .cta:active{ transform:translateY(4px); box-shadow:0 2px 0 #8d3fa8; }
 
   .note{
     z-index:5;
@@ -195,6 +202,18 @@
     10%{ opacity:0.7;}
     100%{ transform:translateY(-60vh); opacity:0;}
   }
+
+  .star{
+    position:absolute;
+    color:var(--cloud);
+    opacity:0.9;
+    text-shadow:0 0 8px rgba(255,255,255,0.9);
+    animation:twinkleStar 2.2s ease-in-out infinite;
+  }
+  @keyframes twinkleStar{
+    0%,100%{ opacity:0.25; transform:scale(0.75);}
+    50%{ opacity:1; transform:scale(1.15);}
+  }
 </style>
 </head>
 <body>
@@ -213,7 +232,7 @@
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <circle cx="100" cy="80" r="46" fill="#ffe3b0"/>
           <path d="M60 95 Q100 60 140 95 Q100 130 60 95 Z" fill="#ff9e6d"/>
-          <circle cx="88" cy="88" r="5" fill="#1f4d5c"/>
+          <circle cx="88" cy="88" r="5" fill="#7a2a5c"/>
           <path d="M40 92 L20 78 L20 106 Z" fill="#ff7a4d"/>
           <path d="M20 130 Q60 110 100 130 Q140 150 180 130" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.8"/>
           <path d="M10 150 Q60 130 100 150 Q140 170 190 150" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
@@ -226,9 +245,9 @@
 
   <div class="waves">
     <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
-      <path d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,180 L0,180 Z" fill="#bdeaea"/>
-      <path d="M0,110 C240,160 480,60 720,110 C960,160 1200,80 1440,120 L1440,180 L0,180 Z" fill="#7fd4e0"/>
-      <path d="M0,140 C240,180 480,100 720,140 C960,180 1200,110 1440,150 L1440,180 L0,180 Z" fill="#3fa9c9"/>
+      <path d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,180 L0,180 Z" fill="#f6d3ef"/>
+      <path d="M0,110 C240,160 480,60 720,110 C960,160 1200,80 1440,120 L1440,180 L0,180 Z" fill="#e2a8de"/>
+      <path d="M0,140 C240,180 480,100 720,140 C960,180 1200,110 1440,150 L1440,180 L0,180 Z" fill="#c47ad1"/>
     </svg>
   </div>
 </div>
@@ -263,6 +282,18 @@
     b.style.animationDelay=(Math.random()*8)+'s';
     stage.appendChild(b);
   }
+
+  const starSpots = [[6,10],[92,8],[88,28],[10,32],[50,5],[75,18]];
+  starSpots.forEach(([x,y],i)=>{
+    const s = document.createElement('div');
+    s.className='star';
+    s.textContent='✦';
+    s.style.left=x+'%';
+    s.style.top=y+'%';
+    s.style.fontSize=(12+Math.random()*10)+'px';
+    s.style.animationDelay=(i*0.35)+'s';
+    stage.appendChild(s);
+  });
 
 </script>
 
