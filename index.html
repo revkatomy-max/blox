@@ -8,19 +8,19 @@
   @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap');
 
   :root{
-    --sky-top:#f3c6e6;
-    --sky-mid:#e2c3f1;
-    --sky-low:#fdf1f7;
-    --sea-deep:#c47ad1;
-    --sea-mid:#e2a8de;
-    --sea-light:#f6d3ef;
-    --ink:#7a2a5c;
+    --sky-top:#bfe3ff;
+    --sky-mid:#dff3ff;
+    --sky-low:#fdf6ec;
+    --sea-deep:#2f8fac;
+    --sea-mid:#7fd4e0;
+    --sea-light:#bdeaea;
+    --ink:#1f4d5c;
     --accent:#ff8fb0;
     --accent-deep:#ff5c8a;
-    --purple-deep:#a855c9;
-    --purple-dark:#8d3fa8;
+    --purple-deep:#3fa9c9;
+    --purple-dark:#256f86;
     --cloud:#ffffff;
-    --card:#fff8fc;
+    --card:#f5fcfd;
   }
 
   *{box-sizing:border-box;}
@@ -152,11 +152,16 @@
     padding:13px 30px;
     border-radius:999px;
     text-decoration:none;
-    box-shadow:0 5px 0 var(--purple-dark);
+    box-shadow:0 5px 0 var(--purple-dark), 0 0 0 rgba(255,143,176,0.5);
     margin-bottom:32px;
     transition:transform 0.1s ease;
+    animation:pulseGlow 2s ease-in-out infinite;
   }
   .cta-join:active{ transform:translateY(3px); box-shadow:0 2px 0 var(--purple-dark); }
+  @keyframes pulseGlow{
+    0%,100%{ transform:scale(1); box-shadow:0 5px 0 var(--purple-dark), 0 0 0 rgba(255,143,176,0.5); }
+    50%{ transform:scale(1.045); box-shadow:0 5px 0 var(--purple-dark), 0 0 18px 4px rgba(255,143,176,0.55); }
+  }
 
   /* filter tabs */
   .filters{
@@ -332,7 +337,7 @@
     <div class="badge"><span class="dot"></span> BLOX GANK ID</div>
     <h1 class="title">Portofolio Kami</h1>
     <p class="subtitle">Kumpulan bot, script, dan tools yang dikembangkan buat komunitas BLOX GANK. Tap kartu buat lihat detailnya 👇</p>
-    <a class="cta-join" href="https://discord.gg/atn7CuZHa" target="_blank" rel="noopener">Gabung Sekarang →</a>
+    <a class="cta-join" href="https://discord.gg/atn7CuZHa" target="_blank" rel="noopener">Ayo Gabung BLOX GANK ID Sekarang 🐟</a>
   </header>
 
   <div class="filters" id="filters">
@@ -480,9 +485,9 @@
 
   <div class="waves">
     <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
-      <path d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,180 L0,180 Z" fill="#f6d3ef"/>
-      <path d="M0,110 C240,160 480,60 720,110 C960,160 1200,80 1440,120 L1440,180 L0,180 Z" fill="#e2a8de"/>
-      <path d="M0,140 C240,180 480,100 720,140 C960,180 1200,110 1440,150 L1440,180 L0,180 Z" fill="#c47ad1"/>
+      <path d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,180 L0,180 Z" fill="#bdeaea"/>
+      <path d="M0,110 C240,160 480,60 720,110 C960,160 1200,80 1440,120 L1440,180 L0,180 Z" fill="#7fd4e0"/>
+      <path d="M0,140 C240,180 480,100 720,140 C960,180 1200,110 1440,150 L1440,180 L0,180 Z" fill="#2f8fac"/>
     </svg>
   </div>
 </div>
