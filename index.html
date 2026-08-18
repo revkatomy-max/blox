@@ -529,7 +529,7 @@
     transform:translateY(-50%);
     font-size:24px;
     left:0%;
-    transition:left 0.12s linear;
+    transition:left 0.18s linear;
     z-index:2;
     filter:drop-shadow(0 2px 1px rgba(0,0,0,0.15));
   }
@@ -1006,7 +1006,7 @@
 
       participants.forEach(name=>{
         if(positions[name] >= 100) return;
-        positions[name] += Math.random() * 4.5 + 0.5;
+        positions[name] += Math.random() * 1.6 + 0.15;
         if(positions[name] >= 100){
           positions[name] = 100;
           if(!winnerFound) winnerFound = name;
