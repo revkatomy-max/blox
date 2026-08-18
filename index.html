@@ -327,11 +327,263 @@
     z-index:3;
   }
   .waves svg{ width:100%; height:auto; display:block; }
+
+  /* ===== top nav tabs ===== */
+  .top-tabs{
+    position:relative;
+    z-index:5;
+    display:flex;
+    gap:8px;
+    background:var(--cloud);
+    padding:6px;
+    border-radius:999px;
+    box-shadow:0 4px 0 rgba(31,77,92,0.12);
+    margin-bottom:28px;
+  }
+  .top-tab-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--purple-dark);
+    background:transparent;
+    border:none;
+    padding:10px 22px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:all 0.15s ease;
+  }
+  .top-tab-btn.active{
+    background:linear-gradient(135deg, var(--sea-deep), var(--purple-deep));
+    color:var(--cloud);
+  }
+
+  .view{ display:none; width:100%; flex-direction:column; align-items:center; }
+  .view.active{ display:flex; }
+
+  /* ===== giveaway ===== */
+  .giveaway-panel{
+    position:relative;
+    z-index:5;
+    width:100%;
+    max-width:640px;
+    background:var(--card);
+    border:2px solid rgba(63,169,201,0.2);
+    border-radius:24px;
+    padding:22px;
+    box-shadow:0 6px 0 rgba(47,143,172,0.12);
+    margin-bottom:20px;
+  }
+  .panel-label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--ink);
+    margin:0 0 10px;
+  }
+  .participant-input-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .participant-input-row input{
+    flex:1;
+    font-family:'Quicksand', sans-serif;
+    font-size:15px;
+    padding:11px 16px;
+    border-radius:14px;
+    border:2px solid rgba(63,169,201,0.25);
+    outline:none;
+    background:#ffffff;
+    color:var(--ink);
+  }
+  .participant-input-row input:focus{ border-color:var(--sea-deep); }
+  .add-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--cloud);
+    background:linear-gradient(135deg, var(--sea-deep), var(--purple-deep));
+    border:none;
+    padding:0 20px;
+    border-radius:14px;
+    cursor:pointer;
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:16px;
+    min-height:20px;
+  }
+  .chip{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--sea-light);
+    color:var(--ink);
+    font-size:13.5px;
+    font-weight:600;
+    padding:6px 8px 6px 12px;
+    border-radius:999px;
+  }
+  .chip button{
+    background:rgba(255,92,138,0.15);
+    color:var(--accent-deep);
+    border:none;
+    width:18px; height:18px;
+    border-radius:50%;
+    font-size:12px;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .panel-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .race-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--cloud);
+    background:linear-gradient(135deg, var(--accent), var(--accent-deep));
+    border:none;
+    padding:13px 26px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 4px 0 rgba(255,92,138,0.35);
+  }
+  .race-btn:disabled{ opacity:0.5; cursor:not-allowed; }
+  .clear-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--purple-dark);
+    background:transparent;
+    border:2px solid rgba(63,169,201,0.3);
+    padding:11px 20px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+
+  .race-track-wrap{
+    position:relative;
+    z-index:5;
+    width:100%;
+    max-width:640px;
+    background:linear-gradient(180deg, #cdeef3, #a9e0e8);
+    border-radius:24px;
+    padding:18px 18px 24px;
+    box-shadow:0 6px 0 rgba(47,143,172,0.15);
+    display:none;
+    margin-bottom:20px;
+  }
+  .race-track-wrap.show{ display:block; }
+
+  .finish-flag{
+    position:absolute;
+    right:14px;
+    top:14px;
+    bottom:24px;
+    width:3px;
+    background:repeating-linear-gradient(180deg, #1f4d5c 0 8px, #ffffff 8px 16px);
+    z-index:2;
+  }
+  .finish-flag::before{
+    content:"🏁";
+    position:absolute;
+    top:-22px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:18px;
+  }
+
+  .lane{
+    position:relative;
+    height:38px;
+    margin-bottom:8px;
+    background:rgba(255,255,255,0.4);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .lane-name{
+    position:absolute;
+    left:6px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:11px;
+    font-weight:700;
+    color:var(--purple-dark);
+    opacity:0.55;
+    z-index:1;
+    max-width:60px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .racer{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:24px;
+    left:0%;
+    transition:left 0.12s linear;
+    z-index:2;
+    filter:drop-shadow(0 2px 1px rgba(0,0,0,0.15));
+  }
+  .racer.winner{
+    animation:winnerBounce 0.5s ease infinite;
+  }
+  @keyframes winnerBounce{
+    0%,100%{ transform:translateY(-50%) scale(1); }
+    50%{ transform:translateY(-65%) scale(1.25); }
+  }
+
+  .winner-banner{
+    display:none;
+    text-align:center;
+    margin-top:14px;
+    padding:16px;
+    background:var(--cloud);
+    border-radius:18px;
+    box-shadow:0 4px 0 rgba(255,92,138,0.2);
+  }
+  .winner-banner.show{ display:block; animation:pop 0.4s ease; }
+  @keyframes pop{
+    0%{ transform:scale(0.7); opacity:0; }
+    70%{ transform:scale(1.06); }
+    100%{ transform:scale(1); opacity:1; }
+  }
+  .winner-banner .win-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:15px;
+    color:var(--purple-dark);
+    opacity:0.7;
+    margin:0 0 4px;
+  }
+  .winner-banner .win-name{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-style:italic;
+    font-size:26px;
+    color:var(--accent-deep);
+    margin:0;
+  }
 </style>
 </head>
 <body>
 
 <div class="stage" id="stage">
+
+  <div class="top-tabs">
+    <button class="top-tab-btn active" data-view="portfolioView">📁 Portofolio</button>
+    <button class="top-tab-btn" data-view="giveawayView">🎉 Giveaway</button>
+  </div>
+
+  <div class="view active" id="portfolioView">
 
   <header>
     <div class="badge"><span class="dot"></span> BLOX GANK ID</div>
@@ -483,6 +735,45 @@
 
   </div>
 
+  </div><!-- /portfolioView -->
+
+  <div class="view" id="giveawayView">
+
+    <header>
+      <div class="badge"><span class="dot"></span> BLOX GANK ID</div>
+      <h1 class="title">Giveaway Race</h1>
+      <p class="subtitle">Masukin nama peserta, lalu tekan Mulai Balapan. Karakter laut yang nyampe garis finish duluan jadi pemenang! 🌊</p>
+    </header>
+
+    <div class="giveaway-panel" id="giveawayPanel">
+      <p class="panel-label">Tambah Peserta</p>
+      <div class="participant-input-row">
+        <input type="text" id="participantInput" placeholder="Ketik nama, lalu Enter atau tekan Tambah">
+        <button class="add-btn" id="addParticipantBtn">Tambah</button>
+      </div>
+      <div class="chips" id="chipsWrap"></div>
+      <div class="panel-actions">
+        <button class="race-btn" id="startRaceBtn" disabled>Mulai Balapan 🏁</button>
+        <button class="clear-btn" id="clearParticipantsBtn">Hapus Semua</button>
+      </div>
+    </div>
+
+    <div class="race-track-wrap" id="raceTrackWrap">
+      <div class="finish-flag"></div>
+      <div id="lanesWrap"></div>
+      <div class="winner-banner" id="winnerBanner">
+        <p class="win-title">🎉 PEMENANGNYA ADALAH 🎉</p>
+        <p class="win-name" id="winnerName">-</p>
+      </div>
+    </div>
+
+    <div class="panel-actions" id="postRaceActions" style="display:none; margin-bottom:20px;">
+      <button class="race-btn" id="rerollBtn">Reroll Ulang 🔁</button>
+      <button class="clear-btn" id="newRaceBtn">Ganti Peserta</button>
+    </div>
+
+  </div><!-- /giveawayView -->
+
   <div class="waves">
     <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
       <path d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,180 L0,180 Z" fill="#bdeaea"/>
@@ -596,6 +887,168 @@
     img.onerror = function(){ /* slot empty, skip silently */ };
     img.src = src;
   }
+
+  // ===== top-level tab switching =====
+  const topTabBtns = document.querySelectorAll('.top-tab-btn');
+  const views = document.querySelectorAll('.view');
+  topTabBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      topTabBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      views.forEach(v=>v.classList.remove('active'));
+      document.getElementById(btn.dataset.view).classList.add('active');
+    });
+  });
+
+  // ===== giveaway race =====
+  const seaEmojis = ['🐟','🐠','🐡','🦈','🐙','🦀','🐢','🦐','🐬','🦑','🐳','🐋'];
+  let participants = [];
+  let usedEmojiMap = {};
+
+  const participantInput = document.getElementById('participantInput');
+  const addParticipantBtn = document.getElementById('addParticipantBtn');
+  const chipsWrap = document.getElementById('chipsWrap');
+  const startRaceBtn = document.getElementById('startRaceBtn');
+  const clearParticipantsBtn = document.getElementById('clearParticipantsBtn');
+  const giveawayPanel = document.getElementById('giveawayPanel');
+  const raceTrackWrap = document.getElementById('raceTrackWrap');
+  const lanesWrap = document.getElementById('lanesWrap');
+  const winnerBanner = document.getElementById('winnerBanner');
+  const winnerName = document.getElementById('winnerName');
+  const postRaceActions = document.getElementById('postRaceActions');
+  const rerollBtn = document.getElementById('rerollBtn');
+  const newRaceBtn = document.getElementById('newRaceBtn');
+
+  function assignEmoji(name){
+    if(usedEmojiMap[name]) return usedEmojiMap[name];
+    const idx = Object.keys(usedEmojiMap).length % seaEmojis.length;
+    const e = seaEmojis[idx];
+    usedEmojiMap[name] = e;
+    return e;
+  }
+
+  function renderChips(){
+    chipsWrap.innerHTML = '';
+    participants.forEach((name, i)=>{
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `<span>${assignEmoji(name)} ${name}</span>`;
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = '×';
+      removeBtn.onclick = ()=>{
+        participants.splice(i,1);
+        renderChips();
+      };
+      chip.appendChild(removeBtn);
+      chipsWrap.appendChild(chip);
+    });
+    startRaceBtn.disabled = participants.length < 2;
+  }
+
+  function addParticipant(){
+    const raw = participantInput.value.trim();
+    if(!raw) return;
+    // support pasting multiple names separated by newline or comma
+    const names = raw.split(/[\n,]/).map(s=>s.trim()).filter(Boolean);
+    names.forEach(n=>{
+      if(!participants.includes(n)) participants.push(n);
+    });
+    participantInput.value = '';
+    renderChips();
+  }
+
+  addParticipantBtn.addEventListener('click', addParticipant);
+  participantInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      addParticipant();
+    }
+  });
+
+  clearParticipantsBtn.addEventListener('click', ()=>{
+    participants = [];
+    usedEmojiMap = {};
+    renderChips();
+  });
+
+  let raceAnimId = null;
+  let raceFinished = false;
+
+  function buildLanes(){
+    lanesWrap.innerHTML = '';
+    participants.forEach((name)=>{
+      const lane = document.createElement('div');
+      lane.className = 'lane';
+      lane.innerHTML = `
+        <span class="lane-name">${name}</span>
+        <span class="racer" data-name="${name}" style="left:0%;">${assignEmoji(name)}</span>
+      `;
+      lanesWrap.appendChild(lane);
+    });
+  }
+
+  function startRace(){
+    if(participants.length < 2) return;
+    raceFinished = false;
+    winnerBanner.classList.remove('show');
+    postRaceActions.style.display = 'none';
+    giveawayPanel.style.display = 'none';
+    raceTrackWrap.classList.add('show');
+
+    buildLanes();
+
+    const positions = {};
+    participants.forEach(n=> positions[n] = 0);
+
+    function tick(){
+      if(raceFinished) return;
+      let winnerFound = null;
+
+      participants.forEach(name=>{
+        if(positions[name] >= 100) return;
+        positions[name] += Math.random() * 4.5 + 0.5;
+        if(positions[name] >= 100){
+          positions[name] = 100;
+          if(!winnerFound) winnerFound = name;
+        }
+        const el = lanesWrap.querySelector(`.racer[data-name="${CSS.escape(name)}"]`);
+        if(el) el.style.left = Math.min(positions[name], 92) + '%';
+      });
+
+      if(winnerFound){
+        raceFinished = true;
+        declareWinner(winnerFound);
+        return;
+      }
+      raceAnimId = requestAnimationFrame(tick);
+    }
+    raceAnimId = requestAnimationFrame(tick);
+  }
+
+  function declareWinner(name){
+    const el = lanesWrap.querySelector(`.racer[data-name="${CSS.escape(name)}"]`);
+    if(el) el.classList.add('winner');
+    winnerName.textContent = `${assignEmoji(name)} ${name}`;
+    setTimeout(()=>{
+      winnerBanner.classList.add('show');
+      postRaceActions.style.display = 'flex';
+    }, 300);
+  }
+
+  startRaceBtn.addEventListener('click', startRace);
+
+  rerollBtn.addEventListener('click', ()=>{
+    if(raceAnimId) cancelAnimationFrame(raceAnimId);
+    startRace();
+  });
+
+  newRaceBtn.addEventListener('click', ()=>{
+    if(raceAnimId) cancelAnimationFrame(raceAnimId);
+    raceTrackWrap.classList.remove('show');
+    winnerBanner.classList.remove('show');
+    postRaceActions.style.display = 'none';
+    giveawayPanel.style.display = 'block';
+  });
 </script>
 
 </body>
