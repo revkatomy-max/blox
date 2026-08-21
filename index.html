@@ -510,6 +510,25 @@
     font-size:12.5px;
     color:var(--muted-foreground);
   }
+  .avatar-download-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-top:4px;
+    padding:9px 20px;
+    border-radius:999px;
+    font-family:'Outfit', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--primary);
+    background:rgba(232,160,184,0.1);
+    border:1px solid rgba(232,160,184,0.3);
+    cursor:pointer;
+    text-decoration:none;
+    transition:all 0.15s ease;
+  }
+  .avatar-download-btn:hover{ background:rgba(232,160,184,0.2); }
+  .avatar-download-btn.downloading{ opacity:0.6; cursor:wait; }
 
   /* ===== mobile optimization ===== */
   @media (max-width: 640px){
@@ -603,6 +622,10 @@
       <img id="avatarImg" src="" alt="Roblox avatar">
       <p class="avatar-name" id="avatarName"></p>
       <p class="avatar-sub" id="avatarSub"></p>
+      <button class="avatar-download-btn" id="avatarDownloadBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download
+      </button>
     </div>
   </div>
 </section>
@@ -770,6 +793,9 @@
   const avatarImg = document.getElementById('avatarImg');
   const avatarName = document.getElementById('avatarName');
   const avatarSub = document.getElementById('avatarSub');
+  const avatarDownloadBtn = document.getElementById('avatarDownloadBtn');
+  let currentAvatarUserId = null;
+  let currentAvatarUsername = null;
 
   async function checkAvatar(){
     const username = usernameInput.value.trim();
@@ -792,11 +818,37 @@
       avatarSub.textContent = '@' + data.name + ' · ID ' + data.userId;
       avatarStatus.textContent = '';
       avatarResult.classList.add('show');
+      currentAvatarUserId = data.userId;
+      currentAvatarUsername = data.name;
     }catch(e){
       avatarStatus.textContent = 'Gagal ambil data, coba lagi.';
     }
     checkAvatarBtn.disabled = false;
   }
+
+  async function downloadAvatar(){
+    if(!currentAvatarUserId) return;
+    avatarDownloadBtn.classList.add('downloading');
+    avatarDownloadBtn.textContent = 'Menyiapkan...';
+    try{
+      const res = await fetch(`${WORKER_BASE}/avatar/${currentAvatarUserId}`);
+      const blob = await res.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = objectUrl;
+      a.download = `roblox-avatar-${currentAvatarUsername || currentAvatarUserId}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(objectUrl);
+    }catch(e){
+      alert('Gagal download, coba lagi.');
+    }
+    avatarDownloadBtn.classList.remove('downloading');
+    avatarDownloadBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg> Download';
+  }
+
+  avatarDownloadBtn.addEventListener('click', downloadAvatar);
 
   checkAvatarBtn.addEventListener('click', checkAvatar);
   usernameInput.addEventListener('keydown', (e)=>{
