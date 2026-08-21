@@ -67,7 +67,7 @@
 
   .hero{
     position:relative;
-    padding:160px 32px 96px;
+    padding:120px 32px 80px;
     text-align:center;
     overflow:hidden;
   }
@@ -83,6 +83,15 @@
     pointer-events:none;
   }
   .hero-inner{ position:relative; z-index:1; max-width:720px; margin:0 auto; }
+  .hero-logo{
+    width:96px;
+    height:96px;
+    margin:0 auto 20px;
+    display:block;
+    object-fit:contain;
+    filter:drop-shadow(0 0 24px rgba(232,160,184,0.25));
+  }
+  .hero-logo.hidden{ display:none; }
   .hero-badge{
     display:inline-block;
     font-size:11px;
@@ -97,22 +106,38 @@
   .hero h1{
     font-family:'Outfit', sans-serif;
     font-weight:800;
-    font-size:clamp(38px, 7vw, 68px);
-    line-height:1.02;
+    font-size:clamp(34px, 7vw, 64px);
+    line-height:1.05;
     letter-spacing:-0.03em;
-    margin:0 0 22px;
+    margin:0 0 20px;
   }
   .hero h1 span{ color:var(--primary); }
   .hero p{
     color:var(--muted-foreground);
-    font-size:17px;
-    max-width:520px;
+    font-size:16px;
+    max-width:480px;
     margin:0 auto;
     line-height:1.65;
   }
+  .hero-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    margin-top:28px;
+    padding:13px 30px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:600;
+    background:var(--primary);
+    color:var(--primary-foreground);
+    text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow:0 8px 24px rgba(232,160,184,0.25);
+  }
+  .hero-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(232,160,184,0.35); }
   .hero-line{
-    width:1px; height:60px;
-    margin:40px auto 0;
+    width:1px; height:50px;
+    margin:36px auto 0;
     background:linear-gradient(180deg, rgba(232,160,184,0.4), transparent);
   }
 
@@ -269,6 +294,56 @@
     background:rgba(255,255,255,0.03);
   }
 
+  .pcard.has-code{ cursor:pointer; }
+  .pcard-code-toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--primary);
+    margin-top:2px;
+  }
+  .pcard-code-toggle svg{ transition:transform 0.2s ease; }
+  .pcard.code-open .pcard-code-toggle svg{ transform:rotate(180deg); }
+
+  .pcard-code-wrap{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .pcard-code-box{
+    position:relative;
+    margin-top:12px;
+    background:#0a0a10;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 44px 14px 14px;
+  }
+  .pcard-code-box code{
+    display:block;
+    font-family:'DM Sans', monospace;
+    font-size:11.5px;
+    color:#c9c2d6;
+    line-height:1.6;
+    word-break:break-all;
+    white-space:pre-wrap;
+  }
+  .pcard-copy-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:11px;
+    font-weight:600;
+    color:var(--primary);
+    background:rgba(232,160,184,0.12);
+    border:1px solid rgba(232,160,184,0.25);
+    border-radius:8px;
+    padding:5px 10px;
+    cursor:pointer;
+  }
+  .pcard-copy-btn.copied{ background:rgba(232,160,184,0.3); }
+
   footer{
     border-top:1px solid var(--border);
     padding:48px 32px;
@@ -320,6 +395,154 @@
     color:rgba(154,143,150,0.5);
     margin:0;
   }
+
+  /* ===== gallery section ===== */
+  .section-heading{
+    max-width:1120px;
+    margin:0 auto 24px;
+    padding:0 32px;
+    text-align:center;
+  }
+  .section-heading h2{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:28px;
+    margin:0 0 8px;
+  }
+  .section-heading p{
+    color:var(--muted-foreground);
+    font-size:14.5px;
+    margin:0;
+  }
+
+  .gallery-section{ padding:64px 32px; border-top:1px solid var(--border); }
+  .gallery-grid{
+    max-width:1120px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:12px;
+  }
+  .gallery-item{
+    aspect-ratio:1/1;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background:var(--card);
+  }
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-empty{
+    grid-column:1/-1;
+    text-align:center;
+    color:var(--muted-foreground);
+    font-size:13.5px;
+    padding:20px;
+  }
+
+  /* ===== avatar checker ===== */
+  .avatar-section{ padding:64px 32px; border-top:1px solid var(--border); }
+  .avatar-panel{
+    max-width:420px;
+    margin:0 auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:26px;
+    text-align:center;
+  }
+  .avatar-input-row{
+    display:flex;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .avatar-input-row input{
+    flex:1;
+    font-family:'DM Sans', sans-serif;
+    font-size:14.5px;
+    padding:11px 15px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#0a0a10;
+    color:var(--foreground);
+    outline:none;
+  }
+  .avatar-input-row input:focus{ border-color:var(--primary); }
+  .avatar-check-btn{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--primary-foreground);
+    background:var(--primary);
+    border:none;
+    padding:0 20px;
+    border-radius:12px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .avatar-check-btn:disabled{ opacity:0.5; cursor:not-allowed; }
+  .avatar-status{
+    font-size:12.5px;
+    color:var(--muted-foreground);
+    min-height:18px;
+    margin-bottom:4px;
+  }
+  .avatar-result{
+    display:none;
+    margin-top:16px;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .avatar-result.show{ display:flex; }
+  .avatar-result img{
+    width:120px;
+    height:120px;
+    border-radius:18px;
+    border:2px solid var(--border);
+    object-fit:cover;
+  }
+  .avatar-result .avatar-name{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:16px;
+  }
+  .avatar-result .avatar-sub{
+    font-size:12.5px;
+    color:var(--muted-foreground);
+  }
+
+  /* ===== mobile optimization ===== */
+  @media (max-width: 640px){
+    .nav{ padding:14px 18px; }
+    .nav-logo{ font-size:16px; }
+    .nav-join{ padding:7px 13px; font-size:12.5px; }
+    .nav-join svg{ width:13px; height:13px; }
+
+    .hero{ padding:88px 18px 56px; }
+    .hero-logo{ width:72px; height:72px; margin-bottom:14px; }
+    .hero h1{ font-size:clamp(28px, 9vw, 40px); }
+    .hero p{ font-size:14.5px; }
+    .hero-cta{ padding:11px 22px; font-size:13.5px; width:100%; justify-content:center; }
+
+    .filters-section{ padding:0 16px 32px; }
+    .filter-btn{ padding:8px 14px; font-size:12.5px; }
+
+    .grid-section{ padding:0 16px 56px; }
+    .grid{ grid-template-columns:1fr; gap:14px; }
+    .pcard-body{ padding:18px; }
+
+    .section-heading{ padding:0 16px; }
+    .section-heading h2{ font-size:22px; }
+    .gallery-section, .avatar-section{ padding:44px 16px; }
+    .gallery-grid{ grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:8px; }
+
+    .avatar-panel{ padding:20px; border-radius:16px; }
+    .avatar-input-row{ flex-direction:column; }
+    .avatar-check-btn{ padding:11px; }
+
+    footer{ padding:36px 18px; }
+    .footer-inner{ flex-direction:column; text-align:center; }
+  }
 </style>
 </head>
 <body>
@@ -335,9 +558,14 @@
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <span class="hero-badge">Portofolio</span>
+    <img class="hero-logo hidden" id="heroLogo" src="assets/logo.png" alt="BLOX GANK logo"
+         onload="this.classList.remove('hidden')" onerror="this.classList.add('hidden')">
     <h1>Tools &amp; Scripts<br><span>Built Different</span></h1>
     <p>Custom Lua scripts and Discord bots crafted for the Roblox community — from rare-catch monitors to full competition systems.</p>
+    <a class="hero-cta" href="https://discord.gg/atn7CuZHa" target="_blank" rel="noopener">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.114 18.1.132 18.11a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+      Ayo Gabung BLOX GANK ID Sekarang
+    </a>
   </div>
   <div class="hero-line"></div>
 </section>
@@ -348,6 +576,35 @@
 
 <section class="grid-section">
   <div class="grid" id="grid"></div>
+</section>
+
+<section class="gallery-section">
+  <div class="section-heading">
+    <h2>Gallery Event Galatama</h2>
+    <p>Momen-momen dari kompetisi Galatama BLOX GANK</p>
+  </div>
+  <div class="gallery-grid" id="galatamaGrid">
+    <p class="gallery-empty" id="galleryEmptyMsg">Belum ada foto diupload.</p>
+  </div>
+</section>
+
+<section class="avatar-section">
+  <div class="section-heading">
+    <h2>Cek Avatar Robloxmu</h2>
+    <p>Masukin username Roblox kamu buat lihat render avatarnya</p>
+  </div>
+  <div class="avatar-panel">
+    <div class="avatar-input-row">
+      <input type="text" id="robloxUsernameInput" placeholder="Username Roblox">
+      <button class="avatar-check-btn" id="checkAvatarBtn">Cek</button>
+    </div>
+    <p class="avatar-status" id="avatarStatus"></p>
+    <div class="avatar-result" id="avatarResult">
+      <img id="avatarImg" src="" alt="Roblox avatar">
+      <p class="avatar-name" id="avatarName"></p>
+      <p class="avatar-sub" id="avatarSub"></p>
+    </div>
+  </div>
 </section>
 
 <footer>
@@ -382,7 +639,8 @@
       tags:["Ticket System","Payment Verify","Auto-Role","Order History"] },
     { id:5, name:"Webhook Free", category:"Script Lua", badge:"FREE",
       description:"A free community webhook script for everyone. Single loadstring execution — copy, paste, and go. No setup needed.",
-      tags:["Free","Loadstring","Community"] },
+      tags:["Free","Loadstring","Community"],
+      code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/javacrypt00/Free/main/free.lua"))()' },
     { id:6, name:"Roblox Avatar Bot", category:"Tools Lain",
       description:"Fetches high-resolution 720×720 Roblox avatar images directly in Discord using a username or user ID. Instant, clean results.",
       tags:["Avatar Fetch","720×720","Username/ID","Discord"] },
@@ -426,7 +684,7 @@
     }
     filtered.forEach(p=>{
       const card = document.createElement('div');
-      card.className = 'pcard';
+      card.className = 'pcard' + (p.code ? ' has-code' : '');
       card.innerHTML = `
         <div class="pcard-topline"></div>
         <div class="pcard-body">
@@ -441,14 +699,109 @@
           <div class="pcard-tags">
             ${p.tags.map(t=>`<span class="pcard-tag">${t}</span>`).join('')}
           </div>
+          ${p.code ? `
+          <span class="pcard-code-toggle">
+            Lihat kode
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="pcard-code-wrap">
+            <div class="pcard-code-box">
+              <code>${p.code.replace(/</g,'&lt;')}</code>
+              <button class="pcard-copy-btn" onclick="event.stopPropagation(); copyPCode(this)">Copy</button>
+            </div>
+          </div>` : ''}
         </div>
       `;
+      if(p.code){
+        card.addEventListener('click', ()=>{
+          const wasOpen = card.classList.contains('code-open');
+          card.classList.toggle('code-open');
+          const wrap = card.querySelector('.pcard-code-wrap');
+          wrap.style.maxHeight = wasOpen ? 0 : wrap.scrollHeight + 'px';
+        });
+      }
       gridEl.appendChild(card);
+    });
+  }
+
+  function copyPCode(btn){
+    const codeEl = btn.parentElement.querySelector('code');
+    navigator.clipboard.writeText(codeEl.textContent).then(()=>{
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1500);
     });
   }
 
   renderFilters();
   renderGrid();
+
+  // ===== Gallery: auto-load assets/gallery/galatama-1.jpg ... galatama-12.jpg =====
+  const galatamaGrid = document.getElementById('galatamaGrid');
+  const galleryEmptyMsg = document.getElementById('galleryEmptyMsg');
+  const maxGallerySlots = 12;
+  let galleryLoadedCount = 0;
+
+  for(let i=1;i<=maxGallerySlots;i++){
+    const src = `assets/gallery/galatama-${i}.jpg`;
+    const img = new Image();
+    img.onload = function(){
+      if(galleryLoadedCount === 0) galleryEmptyMsg.remove();
+      galleryLoadedCount++;
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      const realImg = document.createElement('img');
+      realImg.src = src;
+      realImg.alt = 'Event Galatama ' + i;
+      item.appendChild(realImg);
+      galatamaGrid.appendChild(item);
+    };
+    img.onerror = function(){ /* slot kosong, lewati */ };
+    img.src = src;
+  }
+
+  // ===== Roblox avatar checker =====
+  const WORKER_BASE = "https://square-haze-a007.remediashop.workers.dev";
+  const usernameInput = document.getElementById('robloxUsernameInput');
+  const checkAvatarBtn = document.getElementById('checkAvatarBtn');
+  const avatarStatus = document.getElementById('avatarStatus');
+  const avatarResult = document.getElementById('avatarResult');
+  const avatarImg = document.getElementById('avatarImg');
+  const avatarName = document.getElementById('avatarName');
+  const avatarSub = document.getElementById('avatarSub');
+
+  async function checkAvatar(){
+    const username = usernameInput.value.trim();
+    if(!username) return;
+
+    checkAvatarBtn.disabled = true;
+    avatarResult.classList.remove('show');
+    avatarStatus.textContent = 'Mencari...';
+
+    try{
+      const res = await fetch(`${WORKER_BASE}/resolve?username=${encodeURIComponent(username)}`);
+      if(!res.ok){
+        avatarStatus.textContent = 'Username nggak ketemu.';
+        checkAvatarBtn.disabled = false;
+        return;
+      }
+      const data = await res.json();
+      avatarImg.src = `${WORKER_BASE}/avatar/${data.userId}`;
+      avatarName.textContent = data.displayName || data.name;
+      avatarSub.textContent = '@' + data.name + ' · ID ' + data.userId;
+      avatarStatus.textContent = '';
+      avatarResult.classList.add('show');
+    }catch(e){
+      avatarStatus.textContent = 'Gagal ambil data, coba lagi.';
+    }
+    checkAvatarBtn.disabled = false;
+  }
+
+  checkAvatarBtn.addEventListener('click', checkAvatar);
+  usernameInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ e.preventDefault(); checkAvatar(); }
+  });
 </script>
 
 </body>
