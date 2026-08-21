@@ -396,6 +396,111 @@
     margin:0;
   }
 
+  /* ===== activity calendar ===== */
+  .activity-wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding-top:32px;
+    margin-top:32px;
+    border-top:1px solid var(--border);
+  }
+  .activity-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .activity-head h3{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    margin:0;
+  }
+  .activity-head span{
+    font-size:11.5px;
+    color:var(--muted-foreground);
+  }
+  .activity-scroll{
+    overflow-x:auto;
+    padding-bottom:6px;
+    scrollbar-width:none;
+  }
+  .activity-scroll::-webkit-scrollbar{ display:none; }
+  .activity-inner{ display:inline-block; }
+  .activity-months{ display:flex; padding-left:26px; margin-bottom:3px; }
+  .activity-month-label{
+    font-size:9.5px;
+    color:rgba(154,143,150,0.6);
+    width:14px;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .activity-body{ display:flex; }
+  .activity-daylabels{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    width:24px;
+    padding-top:1px;
+  }
+  .activity-daylabels span{
+    font-size:9px;
+    color:rgba(154,143,150,0.45);
+    height:11px;
+    line-height:11px;
+  }
+  .activity-week{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    margin-right:3px;
+  }
+  .activity-cell{
+    width:11px;
+    height:11px;
+    border-radius:2px;
+    cursor:default;
+  }
+  .activity-legend{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:6px;
+    margin-top:10px;
+  }
+  .activity-legend span{ font-size:10px; color:rgba(154,143,150,0.5); }
+  .legend-swatch{
+    width:11px; height:11px;
+    border-radius:2px;
+    display:inline-block;
+  }
+  .activity-tooltip{
+    position:fixed;
+    z-index:60;
+    font-size:11px;
+    padding:4px 9px;
+    border-radius:6px;
+    background:#1e1e2a;
+    border:1px solid var(--border);
+    color:var(--foreground);
+    pointer-events:none;
+    transform:translate(-50%, -130%);
+    opacity:0;
+    transition:opacity 0.1s ease;
+    white-space:nowrap;
+  }
+  .activity-tooltip.show{ opacity:1; }
+
+  .avatar-placeholder-icon{
+    width:120px;
+    height:120px;
+    border-radius:18px;
+    border:2px dashed rgba(232,160,184,0.2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
   /* ===== gallery section ===== */
   .section-heading{
     max-width:1120px;
@@ -559,6 +664,10 @@
     .avatar-input-row{ flex-direction:column; }
     .avatar-check-btn{ padding:11px; }
 
+    .activity-wrap{ padding-top:24px; margin-top:24px; }
+    .activity-cell{ width:9px; height:9px; }
+    .activity-daylabels{ width:20px; }
+
     footer{ padding:36px 18px; }
     .footer-inner{ flex-direction:column; text-align:center; }
   }
@@ -641,10 +750,26 @@
       Join our Discord
     </a>
   </div>
+  <div class="activity-wrap">
+    <div class="activity-head">
+      <h3>Activity</h3>
+      <span id="activityCount"></span>
+    </div>
+    <div class="activity-scroll">
+      <div class="activity-inner" id="activityInner"></div>
+    </div>
+    <div class="activity-legend">
+      <span>Less</span>
+      <div id="legendSwatches"></div>
+      <span>More</span>
+    </div>
+  </div>
   <div class="footer-bottom">
     <p>© 2026 BLOX GANK ID. All rights reserved.</p>
   </div>
 </footer>
+
+<div class="activity-tooltip" id="activityTooltip"></div>
 
 <script>
   const products = [
@@ -849,6 +974,105 @@
   }
 
   avatarDownloadBtn.addEventListener('click', downloadAvatar);
+
+  // ===== Activity calendar heatmap =====
+  (function renderActivityCalendar(){
+    const inner = document.getElementById('activityInner');
+    const countEl = document.getElementById('activityCount');
+    const legendEl = document.getElementById('legendSwatches');
+    const tooltip = document.getElementById('activityTooltip');
+
+    const levelColors = [
+      'rgba(255,255,255,0.05)',
+      'rgba(232,160,184,0.25)',
+      'rgba(232,160,184,0.45)',
+      'rgba(232,160,184,0.7)',
+      'rgba(232,160,184,0.95)',
+    ];
+
+    legendEl.style.display = 'inline-flex';
+    legendEl.style.gap = '3px';
+    levelColors.forEach(c=>{
+      const sw = document.createElement('span');
+      sw.className = 'legend-swatch';
+      sw.style.background = c;
+      legendEl.appendChild(sw);
+    });
+
+    const totalWeeks = 53;
+    const today = new Date();
+    const start = new Date(today);
+    start.setDate(start.getDate() - totalWeeks * 7);
+    // align to Sunday
+    start.setDate(start.getDate() - start.getDay());
+
+    // deterministic pseudo-random "activity" seeded by date (placeholder data
+    // until real event/order stats are wired in)
+    function seededRandom(seed){
+      const x = Math.sin(seed) * 10000;
+      return x - Math.floor(x);
+    }
+
+    const dayLabelsEl = document.createElement('div');
+    dayLabelsEl.className = 'activity-daylabels';
+    ['', 'Mon', '', 'Wed', '', 'Fri', ''].forEach(d=>{
+      const s = document.createElement('span');
+      s.textContent = d;
+      dayLabelsEl.appendChild(s);
+    });
+
+    const bodyEl = document.createElement('div');
+    bodyEl.className = 'activity-body';
+    bodyEl.appendChild(dayLabelsEl);
+
+    let totalContributions = 0;
+    let cursor = new Date(start);
+
+    for(let w=0; w<totalWeeks; w++){
+      const weekEl = document.createElement('div');
+      weekEl.className = 'activity-week';
+      for(let d=0; d<7; d++){
+        const cellDate = new Date(cursor);
+        const cell = document.createElement('div');
+        cell.className = 'activity-cell';
+
+        if(cellDate > today){
+          cell.style.background = 'transparent';
+        } else {
+          const seed = cellDate.getFullYear()*10000 + (cellDate.getMonth()+1)*100 + cellDate.getDate();
+          const r = seededRandom(seed);
+          let level = 0;
+          if(r > 0.88) level = 4;
+          else if(r > 0.72) level = 3;
+          else if(r > 0.5) level = 2;
+          else if(r > 0.3) level = 1;
+          const count = level === 0 ? 0 : Math.round(r * 12);
+          totalContributions += count;
+
+          cell.style.background = levelColors[level];
+          const dateStr = cellDate.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+          cell.addEventListener('mouseenter', (e)=>{
+            tooltip.textContent = `${count} aktivitas · ${dateStr}`;
+            tooltip.classList.add('show');
+          });
+          cell.addEventListener('mousemove', (e)=>{
+            tooltip.style.left = e.clientX + 'px';
+            tooltip.style.top = e.clientY + 'px';
+          });
+          cell.addEventListener('mouseleave', ()=>{
+            tooltip.classList.remove('show');
+          });
+        }
+
+        weekEl.appendChild(cell);
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      bodyEl.appendChild(weekEl);
+    }
+
+    inner.appendChild(bodyEl);
+    countEl.textContent = totalContributions + ' aktivitas dalam setahun terakhir';
+  })();
 
   checkAvatarBtn.addEventListener('click', checkAvatar);
   usernameInput.addEventListener('keydown', (e)=>{
